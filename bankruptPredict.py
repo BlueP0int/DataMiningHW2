@@ -84,9 +84,10 @@ def generatePCAMap(labels,embeddings,embeddingFileName):
     print('saved '+ embeddingFileName + '.jpg')
 
 def classificationProcess(clf, X_train, y_train, X_test, y_test, modelName):
-    start = time.process_time()
+    # start = time.process_time()
+    start = time.perf_counter()
     y_pred = clf.fit(X_train, y_train).predict(X_test)
-    end = time.process_time()
+    end = time.perf_counter()
     # print("%s: Number of mislabeled points out of a total %d points : %d"
     #    % (modelName,X_test.shape[0], (y_test != y_pred).sum()))
     acc = (y_test == y_pred).sum()/X_test.shape[0]
