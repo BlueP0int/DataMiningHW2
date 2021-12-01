@@ -51,9 +51,14 @@ def datapreprocess(embeddings, labels):
     embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
     embeddings = sigmoid(embeddings)
     
+    ## do some PCA analysis to reduce the dimention of the data
+    ## n_components = 16/32/48
     # pca = PCA(n_components=16)
     # embeddings = pca.fit_transform(embeddings)
     
+    # select the best arributes of the data, for some arributes are highly correlated
+    # this method almost has the same effect with PCA, but it does not re-compute the data, 
+    # just delete some useless attributes to reduce the dimention
     # before use this method, use sigmoid, for the SelectKBest cannot fit negative values
     embeddings = SelectKBest(chi2, k=48).fit_transform(embeddings, np.array(labels))
     
