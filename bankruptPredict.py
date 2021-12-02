@@ -101,70 +101,77 @@ def classificationProcess(clf, X_train, y_train, X_test, y_test, modelName):
     print("{} F1-score is {}".format(modelName, F1_score))
     print("{} time used is {}".format(modelName, time_used))
     with open("log.txt",'a') as f:
-        f.writelines("{} , {:.3f} , {:.3f} , {:.3f} , {:.3f} , {:.3f} \n".format(modelName,acc,ROC_AUC,PR_AUC,F1_score,time_used))
+        f.writelines("| {} | {:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format(modelName,acc,ROC_AUC,PR_AUC,F1_score,time_used))
     
 def main():
-    labels = []
-    embeddings = []
+    # labels = []
+    # embeddings = []
     for i in range(1,6):
+        with open("log.txt",'a') as f:
+            f.writelines("\n\n### Table {}year.arff\n".format(i))
+            f.writelines("| modelName | acc	| ROC_AUC	| PR_AUC	| F1_score	| time_used |\n")
+            f.writelines("| :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |\n")
         embeddingFileName = "./data/{}year.arff".format(i)
-        label,embedding = loaddata(embeddingFileName)
-        labels.extend(label.tolist())
-        embeddings.extend(embedding.tolist())
+        labels,embeddings = loaddata(embeddingFileName)
+        # labels.extend(label.tolist())
+        # embeddings.extend(embedding.tolist())
         # embeddings = np.vstack((embedding,embeddings))
-    embeddings = np.array(embeddings)
-    print(embeddings.shape)
-    embeddings = datapreprocess(embeddings, labels)
-    print(embeddings.shape)
-    generatePCAMap(labels,embeddings,"./data/total")
-    
-    with open("log.txt",'a') as f:
-        f.writelines("\n\nmodelName , acc , ROC_AUC , PR_AUC , F1_score , time_used\n")
-    
-    X = embeddings
-    y = np.array(labels)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
-    
-    # Bernoulli Naive Bayes
-    clf = BernoulliNB()
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "BernoulliNB")
-    
-    # Gaussian Naive Bayes
-    clf = GaussianNB()
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "GaussianNB")
-    
-    # SVM
-    clf = svm.SVC()
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "SVM")
-    
-    
-    # DecisionTree
-    clf = tree.DecisionTreeClassifier()
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "DecisionTree")
-    
-    # Stochastic Gradient Descent
-    clf = SGDClassifier(loss="hinge", penalty="l2", max_iter=50)
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "SGD")
-    
-    # Nearest Neighbors
-    clf = NearestCentroid()
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "Nearest_Neighbors")
-    
-    # AdaBoost
-    clf = AdaBoostClassifier(n_estimators=100)
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "AdaBoost")
-    
-    # GradientBoosting
-    clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "GradientBoosting")
-    
-    # HistGradientBoosting
-    clf = HistGradientBoostingClassifier(max_iter=100)
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "HistGradientBoosting")
-    
-    # Neural network models (supervised)
-    clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(200, ), random_state=1, max_iter=1000)
-    classificationProcess(clf, X_train, y_train, X_test, y_test, "MLP")
+        
+        embeddings = np.array(embeddings)
+        print(embeddings.shape)
+        embeddings = datapreprocess(embeddings, labels)
+        print(embeddings.shape)
+        generatePCAMap(labels,embeddings,"./data/total")
+        
+        # with open("log.txt",'a') as f:
+        #     f.writelines("| modelName | acc	| ROC_AUC	| PR_AUC	| F1_score	| time_used |\n")
+        #     f.writelines("| :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |\n")
+            
+        
+        X = embeddings
+        y = np.array(labels)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+        
+        # Bernoulli Naive Bayes
+        clf = BernoulliNB()
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "BernoulliNB")
+        
+        # Gaussian Naive Bayes
+        clf = GaussianNB()
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "GaussianNB")
+        
+        # SVM
+        clf = svm.SVC()
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "SVM")
+        
+        
+        # DecisionTree
+        clf = tree.DecisionTreeClassifier()
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "DecisionTree")
+        
+        # Stochastic Gradient Descent
+        clf = SGDClassifier(loss="hinge", penalty="l2", max_iter=50)
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "SGD")
+        
+        # Nearest Neighbors
+        clf = NearestCentroid()
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "Nearest_Neighbors")
+        
+        # AdaBoost
+        clf = AdaBoostClassifier(n_estimators=100)
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "AdaBoost")
+        
+        # GradientBoosting
+        clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "GradientBoosting")
+        
+        # HistGradientBoosting
+        clf = HistGradientBoostingClassifier(max_iter=100)
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "HistGradientBoosting")
+        
+        # Neural network models (supervised)
+        clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(200, ), random_state=1, max_iter=1000)
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "MLP")
     
     
     
