@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import math
+import datetime
+import time
 
 from matplotlib import pyplot
 from scipy.io import arff
@@ -118,7 +120,7 @@ def plot_loss(X_train, y_train, X_val, y_val, cost_grad_func, alpha=0.025, max_i
 
 
 def experiment(i, cost_gradient_func, title=None):
-    y, X = loaddata(".\\data\\{}year.arff".format(i))
+    y, X = loaddata("./data/{}year.arff".format(i))
     y = np.array(y)
     X = np.array(X)
     X = datapreprocess(X, y)
@@ -128,14 +130,17 @@ def experiment(i, cost_gradient_func, title=None):
     fig = pyplot.figure()
     plot_loss(X_train, y_train, X_val, y_val, cost_gradient_func, title=title)
 
+    start = time.perf_counter()
     theta = gradient_descent(X_train, y_train, np.zeros(X_train.shape[1]), cost_gradient_func)
     y_pred = sigmoid(X_test.dot(theta)) > 0.5
+    end = time.perf_counter()
     ACC = (y_pred == y_test).sum() / y_test.size
     ROC_AUC = roc_auc_score(y_test, y_pred)
     PR_AUC = average_precision_score(y_test, y_pred)
     F1_score = f1_score(y_test, y_pred, average='macro')
+    time_used = end-start
 
-    print("ACC: {}, ROC_AUC: {}, PR_AUC: {}, F1: {}".format(ACC, ROC_AUC, PR_AUC, F1_score))
+    print("ACC: {}, ROC_AUC: {}, PR_AUC: {}, F1: {}, Time: {}".format(ACC, ROC_AUC, PR_AUC, F1_score, time_used))
 
 
 def main():
