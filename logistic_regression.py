@@ -13,6 +13,7 @@ from sklearn.feature_selection import chi2
 from sklearn.metrics import f1_score
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import average_precision_score
+from sklearn.metrics import recall_score
 
 
 def sigmoid(z):
@@ -46,7 +47,7 @@ def datapreprocess(embeddings, labels):
     # this method almost has the same effect with PCA, but it does not re-compute the data,
     # just delete some useless attributes to reduce the dimention
     # before use this method, use sigmoid, for the SelectKBest cannot fit negative values
-    embeddings = SelectKBest(chi2, k=48).fit_transform(embeddings, np.array(labels))
+    embeddings = SelectKBest(chi2, k=60).fit_transform(embeddings, np.array(labels))
 
     return embeddings
 
@@ -77,7 +78,7 @@ def concat_zero_column(X):
     return np.concatenate([np.ones((m, 1)), X], axis=1)
 
 
-def data_split(X, y, val=0.15, test=0.15):
+def data_split(X, y, val=0.1, test=0.2):
     X_other, X_val, y_other, y_val = train_test_split(X, y, test_size=val, random_state=1)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=(1-val)*test, random_state=1)
     return X_train, X_val, X_test, y_train, y_val, y_test
@@ -135,13 +136,16 @@ def experiment(i, cost_gradient_func, title=None):
     y_pred = sigmoid(X_test.dot(theta)) > 0.5
     end = time.perf_counter()
     ACC = (y_pred == y_test).sum() / y_test.size
+    recall = recall_score(y_test, y_pred)
     ROC_AUC = roc_auc_score(y_test, y_pred)
     PR_AUC = average_precision_score(y_test, y_pred)
     F1_score = f1_score(y_test, y_pred, average='macro')
     time_used = end-start
 
-    print("ACC: {}, ROC_AUC: {}, PR_AUC: {}, F1: {}, Time: {}".format(ACC, ROC_AUC, PR_AUC, F1_score, time_used))
-
+    print("ACC: {}, Recall: {}, ROC_AUC: {}, PR_AUC: {}, F1: {}, Time: {}".format(ACC, recall, ROC_AUC, PR_AUC, F1_score, time_used))
+    print("ecall is {}, {}/{}".format(recall, ((y_pred == 1)&(y_test == 1)).sum(),(y_test == 1).sum()))
+    with open("log.txt",'a') as f:
+        f.writelines("| {} | {:.3f} |{:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format("LogisticRegression(Ours)",ACC,recall,ROC_AUC,PR_AUC,F1_score,time_used))
 
 def main():
     for i in range(1, 6):

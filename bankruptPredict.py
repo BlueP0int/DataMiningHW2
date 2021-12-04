@@ -26,6 +26,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import f1_score
 from sklearn.metrics import roc_auc_score
 from sklearn.metrics import average_precision_score
+from sklearn.metrics import recall_score
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
@@ -49,18 +50,19 @@ def datapreprocess(embeddings, labels):
     # embeddings[np.isnan(embeddings)]=0
     # embeddings = np.delete(embeddings,36,1)
     embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
-    embeddings = sigmoid(embeddings)
     
-    ## do some PCA analysis to reduce the dimention of the data
-    ## n_components = 16/32/48
-    # pca = PCA(n_components=16)
+    
+    # # do some PCA analysis to reduce the dimention of the data
+    # # n_components = 16/32/48
+    # pca = PCA(n_components=48)
     # embeddings = pca.fit_transform(embeddings)
     
     # select the best arributes of the data, for some arributes are highly correlated
     # this method almost has the same effect with PCA, but it does not re-compute the data, 
     # just delete some useless attributes to reduce the dimention
     # before use this method, use sigmoid, for the SelectKBest cannot fit negative values
-    embeddings = SelectKBest(chi2, k=48).fit_transform(embeddings, np.array(labels))
+    embeddings = sigmoid(embeddings)
+    embeddings = SelectKBest(chi2, k=60).fit_transform(embeddings, np.array(labels))
     
     return embeddings
 
@@ -91,17 +93,19 @@ def classificationProcess(clf, X_train, y_train, X_test, y_test, modelName):
     # print("%s: Number of mislabeled points out of a total %d points : %d"
     #    % (modelName,X_test.shape[0], (y_test != y_pred).sum()))
     acc = (y_test == y_pred).sum()/X_test.shape[0]
+    recall = recall_score(y_test, y_pred)
     ROC_AUC = roc_auc_score(y_test, y_pred)
     PR_AUC = average_precision_score(y_test, y_pred)
     F1_score = f1_score(y_test, y_pred, average='macro')
     time_used = end-start
     print("{} Accuracy is {}".format(modelName, acc))
+    print("{} Recall is {}, {}/{}".format(modelName, recall, ((y_pred == 1)&(y_test == 1)).sum(),(y_test == 1).sum()))
     print("{} ROC AUC is {}".format(modelName, ROC_AUC))
     print("{} PR AUC is {}".format(modelName, PR_AUC))    
     print("{} F1-score is {}".format(modelName, F1_score))
     print("{} time used is {}".format(modelName, time_used))
     with open("log.txt",'a') as f:
-        f.writelines("| {} | {:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format(modelName,acc,ROC_AUC,PR_AUC,F1_score,time_used))
+        f.writelines("| {} | {:.3f} |{:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format(modelName,acc,recall,ROC_AUC,PR_AUC,F1_score,time_used))
     
 def main():
     # labels = []
@@ -109,8 +113,8 @@ def main():
     for i in range(1,6):
         with open("log.txt",'a') as f:
             f.writelines("\n\n### Table {}year.arff\n".format(i))
-            f.writelines("| modelName | acc	| ROC_AUC	| PR_AUC	| F1_score	| time_used |\n")
-            f.writelines("| :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |\n")
+            f.writelines("| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |\n")
+            f.writelines("| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |\n")
         embeddingFileName = "./data/{}year.arff".format(i)
         labels,embeddings = loaddata(embeddingFileName)
         # labels.extend(label.tolist())
@@ -130,7 +134,7 @@ def main():
         
         X = embeddings
         y = np.array(labels)
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=1)
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
         
         # Bernoulli Naive Bayes
         clf = BernoulliNB()
@@ -155,7 +159,7 @@ def main():
         
         # Nearest Neighbors
         clf = NearestCentroid()
-        classificationProcess(clf, X_train, y_train, X_test, y_test, "Nearest_Neighbors")
+        classificationProcess(clf, X_train, y_train, X_test, y_test, "NearestCentroid")
         
         # AdaBoost
         clf = AdaBoostClassifier(n_estimators=100)
@@ -173,77 +177,7 @@ def main():
         clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(200, ), random_state=1, max_iter=1000)
         classificationProcess(clf, X_train, y_train, X_test, y_test, "MLP")
     
-    
-    
-    
-    
-    
-    
-    
-    # # Bernoulli Naive Bayes
-    # clf = BernoulliNB()
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("BernoulliNB: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    # print("Accuracy is {}".format((y_test == y_pred).sum()/X_test.shape[0]))
-    # print("ROC AUC is {}".format(roc_auc_score(y_test, y_pred)))
-    # print("PR AUC is {}".format(average_precision_score(y_test, y_pred)))    
-    # print("F1-score is {}".format(f1_score(y_test, y_pred, average='macro')))
-    
-    # # Gaussian Naive Bayes
-    # clf = GaussianNB()
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("GaussianNB: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # SVM
-    # clf = svm.SVC()
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("svm: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # DecisionTree
-    # clf = tree.DecisionTreeClassifier()
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("DecisionTree: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # Stochastic Gradient Descent
-    # clf = SGDClassifier(loss="hinge", penalty="l2", max_iter=50)
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("SGD: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # Nearest Neighbors
-    # clf = NearestCentroid()
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("Nearest Neighbors: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # AdaBoost
-    # clf = AdaBoostClassifier(n_estimators=100)
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("AdaBoost: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # GradientBoosting
-    # clf = GradientBoostingClassifier(n_estimators=100, learning_rate=1.0, max_depth=1, random_state=0)
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("GradientBoosting: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # HistGradientBoosting
-    # clf = HistGradientBoostingClassifier(max_iter=100)
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("HistGradientBoosting: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
-    
-    # # Neural network models (supervised)
-    # clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(200, ), random_state=1, max_iter=1000)
-    # # clf = MLPClassifier(solver='sgd', alpha=1e-5, hidden_layer_sizes=(200,), random_state=1, max_iter=1000)
-    # y_pred = clf.fit(X_train, y_train).predict(X_test)
-    # print("MLP: Number of mislabeled points out of a total %d points : %d"
-    #    % (X_test.shape[0], (y_test != y_pred).sum()))
+      
     
 if __name__ == "__main__":
     main()
