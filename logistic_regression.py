@@ -119,8 +119,30 @@ def plot_loss(X_train, y_train, X_val, y_val, cost_grad_func, alpha=0.025, max_i
         pyplot.title(title)
         pyplot.savefig(title + '.jpg', format='jpg', dpi=1000)
 
+def predict(X, theta, threshold=0.5):
+    return sigmoid(X.dot(theta)) > threshold
 
-def experiment(i, cost_gradient_func, title=None):
+def choose_model(i, cost_gradient_func, thresholds, alpha=0.05, max_iter=400, stop_threshold=0.0001):
+    y, X = loaddata("./data/{}year.arff".format(i))
+    y = np.array(y)
+    X = np.array(X)
+    X = datapreprocess(X, y)
+    X = concat_zero_column(X)
+    X_train, X_val, X_test, y_train, y_val, y_test = data_split(X, y)
+    
+    accs = []
+    recalls = []
+    
+    theta = gradient_descent(X_train, y_train, np.zeros(X_train.shape[1]), cost_gradient_func, alpha=alpha, max_iter=max_iter, stop_threshold=stop_threshold)
+    for threshold in thresholds:
+        y_pred = predict(X_test, theta, threshold)
+        accs.append((y_pred == y_test).sum() / y_test.size)
+        recalls.append(recall_score(y_test, y_pred))
+    
+    return theta, accs, recalls
+
+
+def experiment(i, cost_gradient_func, threshold=0.5, alpha=0.05, max_iter=400, stop_threshold=0.0001, title=None):
     y, X = loaddata("./data/{}year.arff".format(i))
     y = np.array(y)
     X = np.array(X)
@@ -128,12 +150,12 @@ def experiment(i, cost_gradient_func, title=None):
     X = concat_zero_column(X)
     X_train, X_val, X_test, y_train, y_val, y_test = data_split(X, y)
 
-    fig = pyplot.figure()
-    plot_loss(X_train, y_train, X_val, y_val, cost_gradient_func, title=title)
+    #fig = pyplot.figure()
+    #plot_loss(X_train, y_train, X_val, y_val, cost_gradient_func, title=title)
 
     start = time.perf_counter()
-    theta = gradient_descent(X_train, y_train, np.zeros(X_train.shape[1]), cost_gradient_func)
-    y_pred = sigmoid(X_test.dot(theta)) > 0.5
+    theta = gradient_descent(X_train, y_train, np.zeros(X_train.shape[1]), cost_gradient_func, alpha=alpha, max_iter=max_iter, stop_threshold=stop_threshold)
+    y_pred = sigmoid(X_test.dot(theta)) > threshold
     end = time.perf_counter()
     ACC = (y_pred == y_test).sum() / y_test.size
     recall = recall_score(y_test, y_pred)
@@ -143,13 +165,14 @@ def experiment(i, cost_gradient_func, title=None):
     time_used = end-start
 
     print("ACC: {}, Recall: {}, ROC_AUC: {}, PR_AUC: {}, F1: {}, Time: {}".format(ACC, recall, ROC_AUC, PR_AUC, F1_score, time_used))
-    print("ecall is {}, {}/{}".format(recall, ((y_pred == 1)&(y_test == 1)).sum(),(y_test == 1).sum()))
+    print("recall is {}, {}/{}".format(recall, ((y_pred == 1)&(y_test == 1)).sum(),(y_test == 1).sum()))
     with open("log.txt",'a') as f:
         f.writelines("| {} | {:.3f} |{:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format("LogisticRegression(Ours)",ACC,recall,ROC_AUC,PR_AUC,F1_score,time_used))
 
 def main():
+    thresholds=[0.022, 0.033, 0.04, 0.05, 0.06]
     for i in range(1, 6):
-        experiment(i, cost_gradient, "{}year".format(i))
+        experiment(i, cost_gradient, title="{}year".format(i), threshold=thresholds[i-1], alpha=0.025, max_iter=600)
 
 
 if __name__ == "__main__":
