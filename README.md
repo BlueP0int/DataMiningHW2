@@ -3,7 +3,7 @@
 
 ### Table 1 Final Results of all-5-years data for Comparative Models
 
-| ModelName | acc	| ROC_AUC	| PR_AUC	| F1_score	| time_used |
+| ModelName | Precision | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB |	0.897 |	0.627 |	0.046 |	0.542 |	0.011 |
 | GaussianNB |	0.863 |	0.66 |	0.049 |	0.531 |	0.012  |
