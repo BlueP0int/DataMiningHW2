@@ -1,5 +1,5 @@
 # DataMiningHW2
-10 models for Polish+companies+bankruptcy+data
+11 models for Polish+companies+bankruptcy+data
 
 ### Table 1 Final Results of all-5-years data for Comparative Models
 
