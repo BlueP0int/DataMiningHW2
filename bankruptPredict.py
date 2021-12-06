@@ -126,10 +126,6 @@ def main():
         embeddings = datapreprocess(embeddings, labels)
         print(embeddings.shape)
         generatePCAMap(labels,embeddings,"./data/total")
-        
-        # with open("log.txt",'a') as f:
-        #     f.writelines("| modelName | acc	| ROC_AUC	| PR_AUC	| F1_score	| time_used |\n")
-        #     f.writelines("| :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |\n")
             
         
         X = embeddings

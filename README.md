@@ -35,7 +35,7 @@
 | GradientBoosting | 0.989 |0.000 | 0.499 | 0.009 | 0.497 | 0.929 |
 | HistGradientBoosting | 0.990 |0.000 | 0.499 | 0.009 | 0.497 | 75.487 |
 | MLP | 0.983 |0.222 | 0.606 | 0.048 | 0.596 | 41.899 |
-| LogisticRegression(Ours) | 0.988 |0.000 | 0.500 | 0.012 | 0.497 | 1.484 |
+| LogisticRegression(Ours) | 0.710 |0.143 | 0.430 | 0.011 | 0.421 | 1.581 |
 
 
 ### Table 2year.arff
@@ -51,7 +51,7 @@
 | GradientBoosting | 0.980 |0.000 | 0.499 | 0.017 | 0.495 | 1.190 |
 | HistGradientBoosting | 0.984 |0.095 | 0.547 | 0.079 | 0.579 | 35.028 |
 | MLP | 0.963 |0.143 | 0.560 | 0.029 | 0.549 | 38.195 |
-| LogisticRegression(Ours) | 0.982 |0.000 | 0.500 | 0.018 | 0.496 | 1.590 |
+| LogisticRegression(Ours) | 0.787 |0.231 | 0.514 | 0.018 | 0.458 | 1.690 |
 
 
 ### Table 3year.arff
@@ -67,7 +67,7 @@
 | GradientBoosting | 0.977 |0.133 | 0.564 | 0.066 | 0.592 | 1.443 |
 | HistGradientBoosting | 0.981 |0.133 | 0.566 | 0.107 | 0.606 | 44.544 |
 | MLP | 0.965 |0.233 | 0.607 | 0.061 | 0.597 | 37.008 |
-| LogisticRegression(Ours) | 0.975 |0.000 | 0.500 | 0.025 | 0.494 | 3.515 |
+| LogisticRegression(Ours) |  0.872 |0.182 | 0.536 | 0.028 | 0.499 | 1.868 |
 
 
 ### Table 4year.arff
@@ -83,7 +83,7 @@
 | GradientBoosting | 0.968 |0.108 | 0.549 | 0.048 | 0.566 | 1.395 |
 | HistGradientBoosting | 0.974 |0.054 | 0.526 | 0.051 | 0.542 | 90.590 |
 | MLP | 0.958 |0.189 | 0.584 | 0.057 | 0.584 | 35.594 |
-| LogisticRegression(Ours) | 0.967 |0.000 | 0.500 | 0.033 | 0.492 | 2.231 |
+| LogisticRegression(Ours) | 0.924 |0.179 | 0.564 | 0.046 | 0.547 | 1.787 |
 
 
 ### Table 5year.arff
@@ -98,4 +98,4 @@
 | AdaBoost | 0.978 |0.360 | 0.678 | 0.267 | 0.731 | 1.187 |
 | GradientBoosting | 0.946 |0.600 | 0.778 | 0.178 | 0.676 | 0.852 |
 | HistGradientBoosting | 0.978 |0.280 | 0.639 | 0.238 | 0.700 | 78.478 |
-| LogisticRegression(Ours) | 0.965 |0.000 | 0.500 | 0.035 | 0.491 | 1.657 |
+| LogisticRegression(Ours) | 0.925 |0.421 | 0.682 | 0.109 | 0.621 | 1.026 |
