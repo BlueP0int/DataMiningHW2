@@ -34,7 +34,7 @@ def sigmoid(z):
 def loaddata(filename):    
     data = arff.loadarff(filename)
     df = pd.DataFrame(data[0])
-    df = df.dropna()
+    # df = df.dropna()
     labels = df['class'].values.astype(np.int)
 
     # labels = [int(item) for item in labels]
@@ -47,9 +47,9 @@ def loaddata(filename):
 
 def datapreprocess(embeddings, labels):
     # set all nan value to 0, useless
-    # embeddings[np.isnan(embeddings)]=0
+    embeddings[np.isnan(embeddings)]=0
     # embeddings = np.delete(embeddings,36,1)
-    embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
+    # embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
     
     
     # # do some PCA analysis to reduce the dimention of the data
