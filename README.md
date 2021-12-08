@@ -17,11 +17,6 @@
 | MLP |	0.977 |	0.623 |	0.158 |	0.667 |	113.919 |
 
 
-
-
-
-
-
 ### Table 1year.arff
 | ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
