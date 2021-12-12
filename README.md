@@ -3,7 +3,7 @@
 
 ### Table 1 Final Results of all-5-years data for Comparative Models
 
-| ModelName | Precision | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB |	0.897 |	0.627 |	0.046 |	0.542 |	0.011 |
 | GaussianNB |	0.863 |	0.66 |	0.049 |	0.531 |	0.012  |
@@ -18,7 +18,7 @@
 
 
 ### Table 1year.arff
-| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.954 |0.010 | 0.505 | 0.050 | 0.499 | 0.005 |
 | GaussianNB | 0.739 |0.594 | 0.670 | 0.078 | 0.508 | 0.005 |
@@ -34,7 +34,7 @@
 
 
 ### Table 2year.arff
-| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.961 |0.000 | 0.499 | 0.038 | 0.490 | 0.007 |
 | GaussianNB | 0.827 |0.243 | 0.547 | 0.043 | 0.500 | 0.007 |
@@ -50,7 +50,7 @@
 
 
 ### Table 3year.arff
-| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.957 |0.000 | 0.500 | 0.043 | 0.489 | 0.007 |
 | GaussianNB | 0.831 |0.336 | 0.594 | 0.059 | 0.525 | 0.015 |
@@ -66,7 +66,7 @@
 
 
 ### Table 4year.arff
-| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.948 |0.007 | 0.503 | 0.058 | 0.493 | 0.007 |
 | GaussianNB | 0.864 |0.464 | 0.675 | 0.112 | 0.593 | 0.013 |
@@ -82,7 +82,7 @@
 
 
 ### Table 5year.arff
-| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.932 |0.033 | 0.516 | 0.085 | 0.514 | 0.004 |
 | GaussianNB | 0.884 |0.554 | 0.731 | 0.200 | 0.665 | 0.004 |
