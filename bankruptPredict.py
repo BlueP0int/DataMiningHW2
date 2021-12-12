@@ -5,7 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import datetime
 import time
-
+from imblearn.over_sampling import SMOTE
 from sklearn.feature_selection import SelectKBest
 from sklearn.feature_selection import chi2
 from sklearn.model_selection import train_test_split
@@ -64,7 +64,7 @@ def datapreprocess(embeddings, labels):
     embeddings = sigmoid(embeddings)
     embeddings = SelectKBest(chi2, k=60).fit_transform(embeddings, np.array(labels))
     
-    return embeddings
+    return labels,embeddings
 
 def generatePCAMap(labels,embeddings,embeddingFileName):
     colorList = []
@@ -123,7 +123,7 @@ def main():
         
         embeddings = np.array(embeddings)
         print(embeddings.shape)
-        embeddings = datapreprocess(embeddings, labels)
+        labels,embeddings = datapreprocess(embeddings, labels)
         print(embeddings.shape)
         generatePCAMap(labels,embeddings,"./data/total")
             
@@ -131,6 +131,9 @@ def main():
         X = embeddings
         y = np.array(labels)
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=1)
+        
+        oversample = SMOTE()
+        X_train, y_train = oversample.fit_resample(X_train, y_train)
         
         # Bernoulli Naive Bayes
         clf = BernoulliNB()

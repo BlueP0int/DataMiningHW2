@@ -1,7 +1,7 @@
 # DataMiningHW2
 11 models for Polish+companies+bankruptcy+data
 
-### Table 1 Final Results of all-5-years data for Comparative Models
+### Table 1 Final Results of all-5-years data for Comparative Models with unbalanced training data
 
 | ModelName | Accuracy  | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :--------  | :-----  | :----:  |
@@ -17,7 +17,7 @@
 | MLP |	0.977 |	0.623 |	0.158 |	0.667 |	113.919 |
 
 
-### Table 1year.arff
+### Table 1year.arff with unbalanced training data
 | ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.954 |0.010 | 0.505 | 0.050 | 0.499 | 0.005 |
@@ -33,7 +33,7 @@
 | LogisticRegression(Ours) | 0.710 |0.143 | 0.430 | 0.011 | 0.421 | 1.581 |
 
 
-### Table 2year.arff
+### Table 2year.arff with unbalanced training data
 | ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.961 |0.000 | 0.499 | 0.038 | 0.490 | 0.007 |
@@ -49,7 +49,7 @@
 | LogisticRegression(Ours) | 0.787 |0.231 | 0.514 | 0.018 | 0.458 | 1.690 |
 
 
-### Table 3year.arff
+### Table 3year.arff with unbalanced training data
 | ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.957 |0.000 | 0.500 | 0.043 | 0.489 | 0.007 |
@@ -65,7 +65,7 @@
 | LogisticRegression(Ours) |  0.872 |0.182 | 0.536 | 0.028 | 0.499 | 1.868 |
 
 
-### Table 4year.arff
+### Table 4year.arff with unbalanced training data
 | ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.948 |0.007 | 0.503 | 0.058 | 0.493 | 0.007 |
@@ -81,7 +81,7 @@
 | LogisticRegression(Ours) | 0.924 |0.179 | 0.564 | 0.046 | 0.547 | 1.787 |
 
 
-### Table 5year.arff
+### Table 5year.arff with unbalanced training data
 | ModelName | Accuracy  | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
 | :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
 | BernoulliNB | 0.932 |0.033 | 0.516 | 0.085 | 0.514 | 0.004 |
@@ -95,3 +95,79 @@
 | HistGradientBoosting | 0.962 |0.537 | 0.765 | 0.485 | 0.818 | 110.560 |
 | MLP | 0.933 |0.537 | 0.750 | 0.307 | 0.744 | 36.765 |
 | LogisticRegression(Ours) | 0.925 |0.421 | 0.682 | 0.109 | 0.621 | 1.026 |
+
+
+
+### Table 1year.arff with balanced training data via SMOTE
+| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
+| BernoulliNB | 0.833 |0.292 | 0.575 | 0.058 | 0.522 | 0.008 |
+| GaussianNB | 0.506 |0.771 | 0.632 | 0.063 | 0.390 | 0.013 |
+| SVM | 0.812 |0.635 | 0.728 | 0.108 | 0.564 | 5.137 |
+| DecisionTree | 0.923 |0.500 | 0.722 | 0.171 | 0.666 | 0.525 |
+| SGD | 0.903 |0.438 | 0.681 | 0.121 | 0.620 | 0.073 |
+| NearestCentroid | 0.685 |0.635 | 0.661 | 0.073 | 0.481 | 0.005 |
+| AdaBoost | 0.903 |0.542 | 0.731 | 0.154 | 0.643 | 5.270 |
+| GradientBoosting | 0.905 |0.542 | 0.732 | 0.156 | 0.646 | 4.317 |
+| HistGradientBoosting | 0.974 |0.510 | 0.753 | 0.461 | 0.813 | 25.384 |
+| MLP | 0.900 |0.562 | 0.740 | 0.157 | 0.643 | 80.322 |
+
+
+### Table 2year.arff with balanced training data via SMOTE
+| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
+| BernoulliNB | 0.780 |0.365 | 0.581 | 0.048 | 0.493 | 0.009 |
+| GaussianNB | 0.595 |0.626 | 0.610 | 0.050 | 0.421 | 0.019 |
+| SVM | 0.758 |0.609 | 0.686 | 0.070 | 0.509 | 11.095 |
+| DecisionTree | 0.910 |0.435 | 0.682 | 0.105 | 0.609 | 0.694 |
+| SGD | 0.796 |0.487 | 0.647 | 0.063 | 0.518 | 0.118 |
+| NearestCentroid | 0.640 |0.617 | 0.629 | 0.053 | 0.444 | 0.007 |
+| AdaBoost | 0.862 |0.470 | 0.673 | 0.081 | 0.564 | 7.616 |
+| GradientBoosting | 0.865 |0.496 | 0.687 | 0.088 | 0.571 | 6.333 |
+| HistGradientBoosting | 0.973 |0.400 | 0.698 | 0.334 | 0.757 | 31.196 |
+| MLP | 0.885 |0.522 | 0.710 | 0.106 | 0.596 | 104.437 |
+
+
+### Table 3year.arff with balanced training data via SMOTE
+| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
+| BernoulliNB | 0.777 |0.388 | 0.591 | 0.056 | 0.500 | 0.011 |
+| GaussianNB | 0.688 |0.590 | 0.641 | 0.064 | 0.474 | 0.023 |
+| SVM | 0.778 |0.567 | 0.677 | 0.079 | 0.525 | 11.070 |
+| DecisionTree | 0.892 |0.403 | 0.659 | 0.095 | 0.592 | 0.804 |
+| SGD | 0.890 |0.455 | 0.682 | 0.106 | 0.600 | 0.113 |
+| NearestCentroid | 0.694 |0.522 | 0.612 | 0.058 | 0.471 | 0.004 |
+| AdaBoost | 0.849 |0.470 | 0.668 | 0.086 | 0.563 | 8.036 |
+| GradientBoosting | 0.859 |0.440 | 0.659 | 0.084 | 0.566 | 6.780 |
+| HistGradientBoosting | 0.963 |0.410 | 0.699 | 0.268 | 0.733 | 24.232 |
+| MLP | 0.879 |0.388 | 0.644 | 0.084 | 0.574 | 106.323 |
+
+
+### Table 4year.arff with balanced training data via SMOTE
+| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
+| BernoulliNB | 0.795 |0.477 | 0.645 | 0.086 | 0.539 | 0.010 |
+| GaussianNB | 0.802 |0.588 | 0.701 | 0.108 | 0.561 | 0.022 |
+| SVM | 0.801 |0.641 | 0.725 | 0.119 | 0.568 | 9.120 |
+| DecisionTree | 0.889 |0.484 | 0.698 | 0.139 | 0.626 | 0.726 |
+| SGD | 0.761 |0.758 | 0.760 | 0.125 | 0.553 | 0.101 |
+| NearestCentroid | 0.719 |0.654 | 0.688 | 0.093 | 0.512 | 0.006 |
+| AdaBoost | 0.849 |0.608 | 0.735 | 0.139 | 0.606 | 7.405 |
+| GradientBoosting | 0.862 |0.647 | 0.761 | 0.161 | 0.626 | 6.209 |
+| HistGradientBoosting | 0.965 |0.569 | 0.778 | 0.421 | 0.805 | 30.426 |
+| MLP | 0.878 |0.523 | 0.710 | 0.139 | 0.621 | 102.660 |
+
+
+### Table 5year.arff with balanced training data via SMOTE
+| ModelName | Precision | Recall | ROC_AUC	| PR_AUC	| F1_score	| Time_Used |
+| :--------  | :-----  | :----:  | :----:  | :--------  | :-----  | :----:  |
+| BernoulliNB | 0.799 |0.620 | 0.716 | 0.147 | 0.590 | 0.013 |
+| GaussianNB | 0.873 |0.678 | 0.782 | 0.229 | 0.674 | 0.007 |
+| SVM | 0.867 |0.711 | 0.795 | 0.233 | 0.674 | 2.447 |
+| DecisionTree | 0.896 |0.554 | 0.738 | 0.219 | 0.682 | 0.426 |
+| SGD | 0.892 |0.694 | 0.800 | 0.265 | 0.703 | 0.053 |
+| NearestCentroid | 0.773 |0.736 | 0.755 | 0.160 | 0.585 | 0.002 |
+| AdaBoost | 0.905 |0.702 | 0.811 | 0.294 | 0.724 | 4.232 |
+| GradientBoosting | 0.901 |0.678 | 0.797 | 0.276 | 0.714 | 3.388 |
+| HistGradientBoosting | 0.953 |0.636 | 0.806 | 0.444 | 0.811 | 25.816 |
+| MLP | 0.911 |0.587 | 0.761 | 0.261 | 0.712 | 61.952 |
