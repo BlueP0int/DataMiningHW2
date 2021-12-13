@@ -111,6 +111,7 @@
 | GradientBoosting | 0.905 |0.542 | 0.732 | 0.156 | 0.646 | 4.317 |
 | HistGradientBoosting | 0.974 |0.510 | 0.753 | 0.461 | 0.813 | 25.384 |
 | MLP | 0.900 |0.562 | 0.740 | 0.157 | 0.643 | 80.322 |
+| LogisticRegression(Ours) | 0.668 |0.286 | 0.479 | 0.012 | 0.410 | 20.871 |
 
 
 ### Table 2year.arff with balanced training data via SMOTE
@@ -126,6 +127,7 @@
 | GradientBoosting | 0.865 |0.496 | 0.687 | 0.088 | 0.571 | 6.333 |
 | HistGradientBoosting | 0.973 |0.400 | 0.698 | 0.334 | 0.757 | 31.196 |
 | MLP | 0.885 |0.522 | 0.710 | 0.106 | 0.596 | 104.437 |
+| LogisticRegression(Ours) | 0.643 |0.692 | 0.667 | 0.029 | 0.422 | 19.106 |
 
 
 ### Table 3year.arff with balanced training data via SMOTE
@@ -141,6 +143,7 @@
 | GradientBoosting | 0.859 |0.440 | 0.659 | 0.084 | 0.566 | 6.780 |
 | HistGradientBoosting | 0.963 |0.410 | 0.699 | 0.268 | 0.733 | 24.232 |
 | MLP | 0.879 |0.388 | 0.644 | 0.084 | 0.574 | 106.323 |
+| LogisticRegression(Ours) | 0.650 |0.682 | 0.666 | 0.040 | 0.436 | 19.910 |
 
 
 ### Table 4year.arff with balanced training data via SMOTE
@@ -156,6 +159,7 @@
 | GradientBoosting | 0.862 |0.647 | 0.761 | 0.161 | 0.626 | 6.209 |
 | HistGradientBoosting | 0.965 |0.569 | 0.778 | 0.421 | 0.805 | 30.426 |
 | MLP | 0.878 |0.523 | 0.710 | 0.139 | 0.621 | 102.660 |
+| LogisticRegression(Ours) | 0.754 |0.643 | 0.700 | 0.064 | 0.501 | 22.184 |
 
 
 ### Table 5year.arff with balanced training data via SMOTE
@@ -171,3 +175,4 @@
 | GradientBoosting | 0.901 |0.678 | 0.797 | 0.276 | 0.714 | 3.388 |
 | HistGradientBoosting | 0.953 |0.636 | 0.806 | 0.444 | 0.811 | 25.816 |
 | MLP | 0.911 |0.587 | 0.761 | 0.261 | 0.712 | 61.952 |
+| LogisticRegression(Ours) | 0.813 |0.789 | 0.802 | 0.112 | 0.561 | 16.805 |

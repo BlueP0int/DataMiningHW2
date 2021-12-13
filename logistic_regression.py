@@ -15,6 +15,8 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import average_precision_score
 from sklearn.metrics import recall_score
 
+from imblearn.over_sampling import SMOTE
+
 
 def sigmoid(z):
     return 1.0 / (1.0 + np.exp(-z))
@@ -35,7 +37,8 @@ def datapreprocess(embeddings, labels):
     # set all nan value to 0, useless
     # embeddings[np.isnan(embeddings)]=0
     # embeddings = np.delete(embeddings,36,1)
-    embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
+    #embeddings = embeddings[~np.isnan(embeddings).any(axis=1)]
+    embeddings[np.isnan(embeddings)] = 0
     embeddings = sigmoid(embeddings)
 
     ## do some PCA analysis to reduce the dimention of the data
@@ -150,6 +153,9 @@ def experiment(i, cost_gradient_func, threshold=0.5, alpha=0.05, max_iter=400, s
     X = concat_zero_column(X)
     X_train, X_val, X_test, y_train, y_val, y_test = data_split(X, y)
 
+    oversample = SMOTE()
+    X_train, y_train = oversample.fit_resample(X_train, y_train)
+
     #fig = pyplot.figure()
     #plot_loss(X_train, y_train, X_val, y_val, cost_gradient_func, title=title)
 
@@ -170,7 +176,8 @@ def experiment(i, cost_gradient_func, threshold=0.5, alpha=0.05, max_iter=400, s
         f.writelines("| {} | {:.3f} |{:.3f} | {:.3f} | {:.3f} | {:.3f} | {:.3f} |\n".format("LogisticRegression(Ours)",ACC,recall,ROC_AUC,PR_AUC,F1_score,time_used))
 
 def main():
-    thresholds=[0.022, 0.033, 0.04, 0.05, 0.06]
+    #thresholds = [0.022, 0.033, 0.04, 0.05, 0.06]
+    thresholds = [0.5, 0.5, 0.5, 0.5, 0.5]
     for i in range(1, 6):
         experiment(i, cost_gradient, title="{}year".format(i), threshold=thresholds[i-1], alpha=0.025, max_iter=600)
 
