@@ -670,3 +670,8 @@ k-best = 60
 | GradientBoosting | 0.901 |0.678 | 0.797 | 0.276 | 0.714 | 3.388 |
 | HistGradientBoosting | 0.953 |0.636 | 0.806 | 0.444 | 0.811 | 25.816 |
 | MLP | 0.911 |0.587 | 0.761 | 0.261 | 0.712 | 61.952 |
+| LogisticRegression(Ours) | 0.668 |0.286 | 0.479 | 0.012 | 0.410 | 20.871 |
+| LogisticRegression(Ours) | 0.643 |0.692 | 0.667 | 0.029 | 0.422 | 19.106 |
+| LogisticRegression(Ours) | 0.650 |0.682 | 0.666 | 0.040 | 0.436 | 19.910 |
+| LogisticRegression(Ours) | 0.754 |0.643 | 0.700 | 0.064 | 0.501 | 22.184 |
+| LogisticRegression(Ours) | 0.813 |0.789 | 0.802 | 0.112 | 0.561 | 16.805 |
